@@ -27,6 +27,7 @@ dependencies {
 	implementation 'org.apache.camel.springboot:camel-jaxb-starter:4.0.1'
 	implementation 'org.apache.velocity:velocity-engine-scripting:2.3'
 	implementation 'org.apache.velocity:velocity-tools:2.0'
+	implementation 'org.json:json:20210307'
 }
 
 tasks.named('test') {

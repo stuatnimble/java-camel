@@ -56,21 +56,7 @@ public class MyRoute extends RouteBuilder {
                 .log(">>> ${body.id}")
                 .log(">>> ${body.name}")
                 .to("log:bar")
-                .process(new Processor() {
-                    @Override
-                    public void process(Exchange exchange) throws Exception {
-                        MyBean bodyIn = (MyBean) exchange.getIn().getBody();
-                        ExampleServices.example(bodyIn);
-
-                        StringWriter w = new StringWriter();
-                        VelocityContext context = new VelocityContext();
-                        context.put("name", bodyIn.getName());
-                        context.put("id", bodyIn.getId());
-                        Velocity.mergeTemplate("webapp/templates/index.vm", "utf-8", context, w );
-
-                        exchange.getIn().setBody(w.toString());
-                    }
-                });
+                .process(new MyRouteProcess());
 
     }
 }

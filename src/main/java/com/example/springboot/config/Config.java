@@ -32,6 +32,18 @@ public class Config {
     }
 
     @Bean
+    public CxfEndpoint soapEndpoint(final Bus bus) {
+        CxfEndpoint endpoint = new CxfEndpoint();
+        endpoint.setBus(bus);
+//        endpoint.setWsdlURL("wsdl/HelloService.wsdl");
+        endpoint.setBeanId("soapEndpoint");
+        endpoint.setAddress("/soapEndpoint");
+        endpoint.setDataFormat(DataFormat.PAYLOAD);
+
+        return endpoint;
+    }
+
+    @Bean
     public ServletRegistrationBean<CXFServlet> servletRegistrationBean() {
         ServletRegistrationBean<CXFServlet> servlet = new ServletRegistrationBean<>
                 (new CXFServlet(), "/cxf/*");
