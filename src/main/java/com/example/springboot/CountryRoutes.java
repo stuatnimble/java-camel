@@ -2,7 +2,7 @@ package com.example.springboot;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
-import org.springframework.beans.factory.annotation.Value;
+import org.apache.camel.component.jackson.ListJacksonDataFormat;
 import org.springframework.stereotype.Component;
 import org.apache.camel.model.rest.RestBindingMode;
 
@@ -10,13 +10,6 @@ import org.springframework.http.HttpHeaders;
 
 @Component
 public class CountryRoutes extends RouteBuilder {
-
-    @Value("${server.port}")
-    String serverPort;
-
-    @Value("baeldung.api.path")
-    String contextPath;
-
     @Override
     public void configure() throws Exception {
         rest("/api/")
@@ -31,8 +24,8 @@ public class CountryRoutes extends RouteBuilder {
                 .setHeader(Exchange.HTTP_METHOD, simple("GET"))
                 .setHeader(Exchange.CONTENT_TYPE, simple("application/json"))
                 .setHeader(HttpHeaders.ACCEPT, simple("*/*"))
-                .to("https://restcountries.com/v3.1/all?bridgeEndpoint=true")
-                .convertBodyTo(String.class)
+                .to("https://restcountries.com/v3.1/name/Monaco?bridgeEndpoint=true&fields=name,area,capital,region")
+                .unmarshal(new ListJacksonDataFormat(Country.class))
                 .tracing();
 
     }

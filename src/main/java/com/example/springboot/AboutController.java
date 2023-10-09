@@ -20,5 +20,4 @@ public class AboutController {
         Velocity.mergeTemplate("webapp/templates/index.vm", "utf-8", context, w );
         return w.toString();
     }
-
 }
