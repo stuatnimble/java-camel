@@ -16,7 +16,10 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation ('org.springframework.boot:spring-boot-starter-web') {
+		exclude group: 'commons-logging', module:'commons-logging'
+	}
+	testImplementation 'io.rest-assured:rest-assured:5.3.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.apache.camel.springboot:camel-spring-boot-starter:4.0.1'
@@ -26,11 +29,19 @@ dependencies {
 	implementation 'org.apache.camel.springboot:camel-cxf-soap-starter:4.0.1'
 	implementation 'org.apache.camel.springboot:camel-jaxb-starter:4.0.1'
 	implementation 'org.apache.velocity:velocity-engine-scripting:2.3'
-	implementation 'org.apache.camel:camel-http:3.21.0'
-	implementation 'org.apache.velocity:velocity-tools:2.0'
+	implementation ('org.apache.camel:camel-http:3.21.0') {
+		exclude group: 'commons-logging', module:'commons-logging'
+	}
+
+	implementation ('org.apache.velocity:velocity-tools:2.0') {
+		exclude group: 'commons-logging', module:'commons-logging'
+	}
 	implementation 'org.json:json:20210307'
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'io.rest-assured:rest-assured:5.3.2'
+	implementation ('org.springframework.boot:spring-boot-starter-webflux') {
+		exclude group: 'commons-logging', module:'commons-logging'
+	}
+	testImplementation 'junit:junit:4.13.1'
+
 }
 
 tasks.named('test') {
