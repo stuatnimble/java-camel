@@ -26,8 +26,11 @@ dependencies {
 	implementation 'org.apache.camel.springboot:camel-cxf-soap-starter:4.0.1'
 	implementation 'org.apache.camel.springboot:camel-jaxb-starter:4.0.1'
 	implementation 'org.apache.velocity:velocity-engine-scripting:2.3'
+	implementation 'org.apache.camel:camel-http:3.21.0'
 	implementation 'org.apache.velocity:velocity-tools:2.0'
 	implementation 'org.json:json:20210307'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'io.rest-assured:rest-assured:5.3.2'
 }
 
 tasks.named('test') {

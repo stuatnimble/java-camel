@@ -6,12 +6,19 @@ import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.transport.servlet.CXFServlet;
 import org.apache.velocity.app.VelocityEngine;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Configuration
 public class Config {
+    @Value("http://localhost:4300")
+    private String addressBaseUrl;
+
     @Bean
     public VelocityEngine velocityEngine() {
         var vel = new VelocityEngine();
@@ -53,4 +60,25 @@ public class Config {
 
     @Bean
     public SpringBus cxf() {return new SpringBus();}
+
+    @Bean
+    public WebClient webClient() {
+        return WebClient.builder().baseUrl(addressBaseUrl).build();
+    }
+
+//    @Bean
+//    public RegisterResponse registerUser(UserDto userDto) {
+//        Mono<String> responseMono = webClient.post()
+//                .uri(endpointPath)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .body(Mono.just(user), UserDto.class)
+//                .retrieve()
+//                .bodyToMono(RegisterResponse.class);
+//
+//        responseMono.subscribe(response -> {
+//            // handle the response
+//        }, error -> {
+//            // handle the error
+//        });
+//    }
 }
